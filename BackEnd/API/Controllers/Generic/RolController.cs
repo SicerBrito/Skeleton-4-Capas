@@ -63,7 +63,7 @@ namespace API.Controllers;
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<RolDto>> Get(string id)
+        public async Task<ActionResult<RolDto>> Get(int id)
         {
             var rol = await _UnitOfWork.Roles!.GetByIdAsync(id);
             if (rol == null)
@@ -118,7 +118,7 @@ namespace API.Controllers;
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int id)
         {
             var rol = await _UnitOfWork.Roles!.GetByIdAsync(id);
             if (rol == null)

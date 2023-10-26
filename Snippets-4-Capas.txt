@@ -1,0 +1,408 @@
+{
+	"ControllerBase4Capas": {
+		"prefix": "controllerBase4Capas",
+		"body": [
+			"using API.Dtos;",
+			"using API.Helpers;",
+			"using AutoMapper;",
+			"using Dominio.Entities;",
+			"using Dominio.Interfaces;",
+			"using Microsoft.AspNetCore.Mvc;",
+			"",
+			"namespace API.Controllers;",
+			"",
+				"\t[ApiVersion(\"1.0\")]",
+				"\t[ApiVersion(\"1.1\")]",
+				"\tpublic class ${1:Nombre}Controller : BaseApiController{",
+					"",	
+					"\t\tprivate readonly IUnitOfWork _UnitOfWork;",
+					"\t\tprivate readonly IMapper _Mapper;",
+					"",
+					"\t\tpublic ${1:Nombre}Controller(IUnitOfWork unitOfWork,IMapper mapper){",
+					"\t\t\t_UnitOfWork = unitOfWork;",
+					"\t\t\t_Mapper = mapper;",
+					"\t\t}",
+					"",
+					"\t\t[HttpGet]",
+					"\t\t[MapToApiVersion(\"1.0\")]",
+					"\t\t[ProducesResponseType(StatusCodes.Status200OK)]",
+					"\t\t[ProducesResponseType(StatusCodes.Status400BadRequest)]",
+					"\t\tpublic async Task<ActionResult<IEnumerable<${2:NombreDto}>>> Get(){",
+					"\t\t\tvar records = await _UnitOfWork.${3:NombrePluralIUnitOfWork}!.GetAllAsync();",
+					"\t\t\treturn _Mapper.Map<List<${2:NombreDto}>>(records);",
+					"\t\t}",
+					"",
+					"\t\t[HttpGet(\"Pager\")]",
+					"\t\t[MapToApiVersion(\"1.1\")]",
+					"\t\t[ProducesResponseType(StatusCodes.Status200OK)]",
+					"\t\t[ProducesResponseType(StatusCodes.Status400BadRequest)]",
+					"\t\tpublic async Task<ActionResult<Pager<${2:NombreDto}>>> Get11([FromQuery] Params recordParams)",
+					"\t\t{",
+					"\t\t\tvar record = await _UnitOfWork.${3:NombrePluralIUnitOfWork}!.GetAllAsync(recordParams.PageIndex,recordParams.PageSize,recordParams.Search);",
+					"\t\t\tvar lstrecordsDto = _Mapper.Map<List<${2:NombreDto}>>(record.registros);",
+					"\t\t\treturn new Pager<${2:NombreDto}>(lstrecordsDto,record.totalRegistros,recordParams.PageIndex,recordParams.PageSize,recordParams.Search);",
+					"\t\t}",
+					"",
+					"\t\t[HttpGet(\"{id}\")]",
+					"\t\t[ProducesResponseType(StatusCodes.Status200OK)]",
+					"\t\t[ProducesResponseType(StatusCodes.Status400BadRequest)]",
+					"\t\t[ProducesResponseType(StatusCodes.Status404NotFound)]",
+					"\t\tpublic async Task<ActionResult<${2:NombreDto}>> Get(int id)",
+					"\t\t{",
+					"\t\t\tvar record = await _UnitOfWork.${3:NombrePluralIUnitOfWork}!.GetByIdAsync(id);",
+					"\t\t\tif (record == null){",
+					"\t\t\t\treturn NotFound();",
+					"\t\t\t}",
+					"\t\t\treturn _Mapper.Map<${2:NombreDto}>(record);",
+					"\t\t}",
+					"",
+					"\t\t[HttpPost]",
+					"\t\t[ProducesResponseType(StatusCodes.Status201Created)]",
+					"\t\t[ProducesResponseType(StatusCodes.Status400BadRequest)]",
+					"\t\tpublic async Task<ActionResult<${4:NombreEntidad}>> Post(${2:NombreDto} recordDto){",
+					"\t\t\tvar records = _Mapper.Map<List<${4:NombreEntidad}>>(recordDto);",
+					"\t\t\tforeach (var record in records)",
+					"\t\t\t{",
+						"\t\t\t\t_UnitOfWork.${3:NombrePluralIUnitOfWork}!.Add(record);",
+						"\t\t\t\tif (record == null)",
+						"\t\t\t\t{",
+							"\t\t\t\t\treturn BadRequest();",
+						"\t\t\t\t}",
+					"\t\t\t}",
+					"\t\t\tawait _UnitOfWork.SaveAsync();",
+					"\t\t\tvar createdRecordsDto = _Mapper.Map<List<${2:NombreDto}>>(records);",
+					"\t\t\treturn CreatedAtAction(nameof(Post), createdRecordsDto);",
+					"\t\t}",
+					"",
+					"\t\t[HttpPut(\"{id}\")]",
+					"\t\t[ProducesResponseType(StatusCodes.Status200OK)]",
+					"\t\t[ProducesResponseType(StatusCodes.Status404NotFound)]",
+					"\t\t[ProducesResponseType(StatusCodes.Status400BadRequest)]",
+					"\t\tpublic async Task<ActionResult<${2:NombreDto}>> Put(string id, [FromBody]${2:NombreDto} recordDto){",
+					"\t\t\tif(recordDto == null)",
+					"\t\t\t\treturn NotFound();",
+					"\t\t\tvar records = _Mapper.Map<${4:NombreEntidad}>(recordDto);",
+					"\t\t\t_UnitOfWork.${3:NombrePluralIUnitOfWork}!.Update(records);",
+					"\t\t\tawait _UnitOfWork.SaveAsync();",
+					"\t\t\treturn recordDto;",
+					"\t\t}",
+					"",
+					"\t\t[HttpDelete(\"{id}\")]",
+					"\t\t[ProducesResponseType(StatusCodes.Status204NoContent)]",
+					"\t\t[ProducesResponseType(StatusCodes.Status404NotFound)]",
+					"\t\tpublic async Task<IActionResult> Delete(int id){",
+					"\t\t\ttry",
+					"\t\t\t{",
+						"\t\t\t\tvar record = await _UnitOfWork.${3:NombrePluralIUnitOfWork}!.GetByIdAsync(id);",
+						"\t\t\t\tif(record == null){",
+							"\t\t\t\t\treturn NotFound();",
+						"\t\t\t\t}",
+						"\t\t\t\t_UnitOfWork.${3:NombrePluralIUnitOfWork}.Remove(record);",
+						"\t\t\t\tawait _UnitOfWork.SaveAsync();",
+						"\t\t\t\treturn StatusCode(StatusCodes.Status200OK, \"Se ha borrado exitosamente\");",
+					"\t\t\t}",
+					"\t\t\tcatch (Exception)",
+					"\t\t\t{",
+						"\t\t\t\t// Manejo de excepciones",
+						"\t\t\t\treturn StatusCode(StatusCodes.Status500InternalServerError, \"Error interno del servidor o no esta autorizado este servicio\");",
+					"\t\t\t}",
+					"",
+					"\t\t}",
+				"\t}",
+				""
+		],
+		"description": "Snippet para configuración de la base de los controladores 4 capas"
+	},
+	
+	"MappingProfile4Capas": {
+		"prefix": "mappingProfileBase4Capas",
+		"body": [
+			"using API.Dtos;",
+			"using API.Dtos.DtosProject;",
+			"using API.Dtos.Generic;",
+			"using AutoMapper;",
+			"using Dominio.Entities;",
+			"",
+			"namespace API.Profiles;",
+				"\tpublic class MappingProfile : Profile{",
+					"\t\tpublic MappingProfile(){",
+						"",
+						"\t\t\tCreateMap<RolDto, Rol>()",
+							"\t\t\t\t.ReverseMap();",
+						"",
+						"\t\t\tCreateMap<UsuarioDto, Usuario>()",
+							"\t\t\t\t.ReverseMap();",
+						"",
+				        "\t\t}",
+				    "\t}",
+		],
+		"description": "Snippet para generar el Mapping 4 capas"
+	},
+	
+	"UnSoloMappingProfile": {
+		"prefix": "mappingProfile",
+		"body": [
+			"CreateMap<${1:Nombre}Dto, ${1:NombreEntidad}>()",
+			"\t.ReverseMap();"
+		],
+		"description": "Snippet para generar un solo Mapping"
+	},
+
+	"entidad-Base": {
+		"prefix": "entidad-Base",
+		"body": [
+			"namespace Dominio.Entities;",
+			"\tpublic class ${1:Nombre} : BaseEntity{",
+			"",
+				"\t\t",
+			"",
+		"\t}",
+		""
+		],
+		"description": "Snippet para generar la estructura base de una entidad"
+	},
+
+	"public-int": {
+		"prefix": "public-int",
+		"body": [
+			"public int ${1:Nombre} { get; set; }"
+		],
+		"description": "Snippet para generar una propiedad int"
+	},
+
+	"public-string": {
+		"prefix": "public-string",
+		"body": [
+			"public string ? ${1:Nombre} { get; set; }"
+		],
+		"description": "Snippet para generar una propiedad string"
+	},
+
+	"public-DateTime": {
+		"prefix": "public-DateTime",
+		"body": [
+			"public DateTime ? ${1:Nombre} { get; set; }"
+		],
+		"description": "Snippet para generar una propiedad DateTime"
+	},
+
+	"foreign-key": {
+		"prefix": "foreign-key",
+		"body": [
+			"public ${1:Nombre} ? ${1:Nombre}s { get; set; }"
+		],
+		"description": "Snippet para generar una referencia foranea"
+	},
+
+	"ICollection-key": {
+		"prefix": "ICollection-key",
+		"body": [
+			"public ICollection<${1:Nombre}> ? ${1:Nombre}s { get; set; }"
+		],
+		"description": "Snippet para generar una llave foranea"
+	},
+
+	"configuration-base": {
+		"prefix": "configuration-base",
+		"body": [
+			"using Dominio.Entities;",
+			"using Microsoft.EntityFrameworkCore;",
+			"using Microsoft.EntityFrameworkCore.Metadata;",
+			"using Microsoft.EntityFrameworkCore.Metadata.Builders;",
+			"",
+			"namespace Persistencia.Data.Configuration;",
+			"public class ${1:Nombre}Configuration : IEntityTypeConfiguration<${1:Nombre}>",
+			"{",
+				"\tpublic void Configure(EntityTypeBuilder<${1:Nombre}> builder)",
+				"\t{",
+					"",
+					"\t\tbuilder.ToTable(\"${1:Nombre}\");",
+			"",
+					"\t\tbuilder.Property(p => p.Id)",
+						"\t\t.HasAnnotation(\"MySql:ValueGenerationStrategy\", MySqlValueGenerationStrategy.IdentityColumn)",
+						"\t\t.HasColumnName(\"Id${1:Nombre}\")",
+						"\t\t.HasColumnType(\"int\")",
+						"\t\t.IsRequired();",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+			"\t\t",
+					"\t\tbuilder.HasData(",
+						"\t\t\tnew {",
+						"\t\t\t\t",
+						"\t\t\t},",
+						"\t\t\tnew {",
+						"\t\t\t\t",
+						"\t\t\t},",
+						"\t\t\tnew {",
+						"\t\t\t\t",
+						"\t\t\t}",
+					"\t\t);",
+					"",
+					"",
+				"\t}",
+			"}",
+			""
+		],
+		"description": "Snippet para generar la base de los archivos de configuracion"
+	},
+
+	"property-int": {
+		"prefix": "property-int",
+		"body": [
+			"builder.Property(p => p.${1:Nombre})",
+            "\t.HasColumnName(\"${1:Nombre}\")",
+            "\t.HasColumnType(\"int\")",
+            "\t.IsRequired();"
+		],
+		"description": "Snippet para generar una propiedad de configuracion int"
+	},
+
+	"property-varchar": {
+		"prefix": "property-varchar",
+		"body": [
+			"builder.Property(p => p.${1:Nombre})",
+            "\t.HasColumnName(\"${1:Nombre}\")",
+            "\t.HasColumnType(\"varchar\")",
+			"\t.HasMaxLength(${2:CantidadDeCaracteres})",
+            "\t.IsRequired();"
+		],
+		"description": "Snippet para generar una propiedad de configuracion varchar"
+	},
+
+	"property-DateTime": {
+		"prefix": "property-DateTime",
+		"body": [
+			"builder.Property(p => p.${1:Nombre})",
+            "\t.HasColumnName(\"${1:Nombre}\")",
+            "\t.HasColumnType(\"DateTime\")",
+            "\t.IsRequired();"
+		],
+		"description": "Snippet para generar una propiedad de configuracion DateTime"
+	},
+
+	"hasOne": {
+		"prefix": "hasOne",
+		"body": [
+			"builder.HasOne(p => p.${1:ReferenciaForanea})",
+            "\t.WithMany(p => p.${2:LlaveForanea})",
+            "\t.HasForeignKey(p => p.${3:PropiedadId});"
+		],
+		"description": "Snippet para generar una llave foranea"
+	},
+
+	"hasData": {
+		"prefix": "hasData",
+		"body": [
+			"new {",
+                "\t",
+            "}"
+		],
+		"description": "Snippet para generar una base needing para insertar datos fijos a la base de datos"
+	},
+
+	"dbSet": {
+		"prefix": "dbSet",
+		"body": [
+			"public DbSet<${1:Nombre}> ? ${1:Nombre}s { get; set; } = null!;"
+		],
+		"description": "Snippet para generar una propiedad dbset"
+	},
+
+	"interface-base": {
+		"prefix": "interface-base",
+		"body": [
+			"using Dominio.Entities;",
+			"namespace Dominio.Interfaces;",
+			"",
+				"\tpublic interface I${1:Nombre} : IGenericRepository<${1:Nombre}>",
+				"\t{",
+					"\t\t",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura base de una interfas"
+	},
+
+	"interface": {
+		"prefix": "interface",
+		"body": [
+			"I${1:Nombre} ? ${1:Nombre}s { get; }"
+		],
+		"description": "Snippet para generar una referencia de las interfaces"
+	},
+
+	"repository-base": {
+		"prefix": "repository-base",
+		"body": [
+			"using Dominio.Entities;",
+			"using Dominio.Interfaces;",
+			"using Persistencia.Data;",
+			"using Microsoft.EntityFrameworkCore;",
+			"",
+			"namespace Aplicacion.Repository;",
+			"public class ${1:Nombre}Repository : GenericRepository<${1:Nombre}>, I${1:Nombre}",
+			"{",
+				"\tprivate readonly DbAppContext _Context;",
+				"\tpublic ${1:Nombre}Repository(DbAppContext context) : base(context)",
+				"\t{",
+					"\t\t_Context = context;",
+				"\t}",
+				"\tpublic override async Task<IEnumerable<${1:Nombre}>> GetAllAsync()",
+				"\t{",
+					"\t\treturn await _Context.Set<${1:Nombre}>()",
+							"\t\t\t.Include(p => p.${2:foraneas})",
+										"\t\t\t.ToListAsync();",
+				"\t}",
+			"}",
+			""
+		],
+		"description": "Snippet para generar una estructura base de los repositorios"
+	},
+
+	"include": {
+		"prefix": "include",
+		"body": [
+			".Include(p => p.${1:foranea})"
+		],
+		"description": "Snippet para generar una referencia include"
+	},
+
+	"private-repository": {
+		"prefix": "private-repository",
+		"body": [
+			"private ${1:Nombre}Repository ? _${1:Nombre};"
+		],
+		"description": "Snippet para generar una propiedad private"
+	},
+
+	"public-repository": {
+		"prefix": "public-repository",
+		"body": [
+			"_${1:Nombre} ??= new ${1:Nombre}Repository(_Context!)"
+		],
+		"description": "Snippet para generar lo que falta de la referencia"
+	},
+
+	"dto-base": {
+		"prefix": "dto-base",
+		"body": [
+			"namespace API.Dtos.DtosProject;",
+				"\tpublic class ${1:Nombre}Dto",
+				"\t{",
+					"\t\tpublic int Id { get; set; }",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar una estructura base dto"
+	}
+
+}
