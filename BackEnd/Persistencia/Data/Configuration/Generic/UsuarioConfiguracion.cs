@@ -19,13 +19,13 @@ namespace Persistencia.Data.Configuracion;
             builder.Property(p => p.Username)
                 .HasColumnName("Username")
                 .HasColumnType("varchar")
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .IsRequired();
 
             builder.Property(p => p.Email)
                 .HasColumnName("Email")
                 .HasColumnType("varchar")
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .IsRequired();
 
             builder.HasIndex(p => p.Username)
@@ -37,7 +37,7 @@ namespace Persistencia.Data.Configuracion;
             builder.Property(p => p.Password)
                 .HasColumnName("Password")
                 .HasColumnType("varchar")
-                .HasMaxLength(50)
+                .HasMaxLength(255)
                 .IsRequired();
 
             builder.HasMany(p => p.RefreshTokens)
