@@ -154,7 +154,7 @@
 			"namespace Dominio.Entities;",
 			"\tpublic class ${1:Nombre} : BaseEntity{",
 			"",
-				"\t\t",
+				"\t\t${2:}",
 			"",
 		"\t}",
 		""
@@ -170,6 +170,14 @@
 		"description": "Snippet para generar una propiedad int"
 	},
 
+	"public-double": {
+		"prefix": "public-double",
+		"body": [
+			"public double ${1:Nombre} { get; set; }"
+		],
+		"description": "Snippet para generar una propiedad double"
+	},
+
 	"public-string": {
 		"prefix": "public-string",
 		"body": [
@@ -181,7 +189,7 @@
 	"public-DateTime": {
 		"prefix": "public-DateTime",
 		"body": [
-			"public DateTime ? ${1:Nombre} { get; set; }"
+			"public DateTime ${1:Nombre} { get; set; }"
 		],
 		"description": "Snippet para generar una propiedad DateTime"
 	},
@@ -264,6 +272,17 @@
             "\t.IsRequired();"
 		],
 		"description": "Snippet para generar una propiedad de configuracion int"
+	},
+
+	"property-double": {
+		"prefix": "property-double",
+		"body": [
+			"builder.Property(p => p.${1:Nombre})",
+            "\t.HasColumnName(\"${1:Nombre}\")",
+            "\t.HasColumnType(\"double\")",
+            "\t.IsRequired();"
+		],
+		"description": "Snippet para generar una propiedad de configuracion double"
 	},
 
 	"property-varchar": {
