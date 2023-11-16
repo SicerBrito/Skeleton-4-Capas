@@ -142,7 +142,7 @@
 	"UnSoloMappingProfile": {
 		"prefix": "mappingProfile",
 		"body": [
-			"CreateMap<${1:Nombre}Dto, ${1:NombreEntidad}>()",
+			"CreateMap<${1:NombreEntidad}, ${1:Nombre}Dto>()",
 			"\t.ReverseMap();"
 		],
 		"description": "Snippet para generar un solo Mapping"
@@ -411,7 +411,9 @@
 			"namespace API.Dtos.DtosProject;",
 				"\tpublic class ${1:Nombre}Dto",
 				"\t{",
+				"",
 					"\t\tpublic int Id { get; set; }",
+				"",	
 				"\t}",
 			""
 		],
