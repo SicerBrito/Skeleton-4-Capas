@@ -418,6 +418,40 @@
 			""
 		],
 		"description": "Snippet para generar una estructura base dto"
+	},
+
+	"dbcontext": {
+		"prefix": "dbcontext",
+		"body": [
+			"using System.Reflection;",
+			"using Dominio.Entities;",
+			"using Dominio.Entities.GenericEntities;",
+			"using Microsoft.EntityFrameworkCore;",
+			"",
+			"namespace Persistencia.Data;",
+				"\tpublic class DbAppContext : DbContext{",
+					"",
+					"\t\t// Constructor: Asegura que esté listo para interactuar con la base de datos",
+					"\t\tpublic DbAppContext(DbContextOptions<DbAppContext> options) : base (options){",
+			"",
+					"\t\t}",
+			"",
+					"\t\t// Colección de entidades en la base de datos",
+					"\t\tpublic DbSet<Usuario> ? Usuarios { get; set; } = null!;",
+					"\t\tpublic DbSet<Rol> ? Roles { get; set; } = null!;",
+					"\t\tpublic DbSet<UsuarioRoles> ? UsuarioRoles { get; set; } = null!;",
+					"\t\tpublic DbSet<RefreshToken> ? RefreshTokens { get; set; } = null!;",
+			"",
+			"",
+					"\t\t// Configurar el modelo de datos, es decir, definir cómo se mapean las entidades a las tablas de la base de datos y cómo se configuran sus relaciones y propiedades",
+					"\t\tprotected override void OnModelCreating(ModelBuilder modelBuilder){",
+						"\t\t\tbase.OnModelCreating(modelBuilder);",
+						"\t\t\tmodelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());",
+					"\t\t}",
+			"",
+				"\t}"
+		],
+		"description": "Snippet para generar una estructura base del dbcontext"
 	}
 
 }
