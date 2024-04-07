@@ -13,7 +13,7 @@
 			"",
 				"\t[ApiVersion(\"1.0\")]",
 				"\t[ApiVersion(\"1.1\")]",
-				"\tpublic class ${1:Nombre}Controller : BaseApiController{",
+				"\tpublic class ${1:Nombre}Controller : BaseApiController {",
 					"",	
 					"\t\tprivate readonly IUnitOfWork _UnitOfWork;",
 					"\t\tprivate readonly IMapper _Mapper;",
@@ -124,7 +124,7 @@
 			"using Dominio.Entities;",
 			"",
 			"namespace API.Profiles;",
-				"\tpublic class MappingProfile : Profile{",
+				"\tpublic class MappingProfile : Profile {",
 					"\t\tpublic MappingProfile(){",
 						"",
 						"\t\t\tCreateMap<RolDto, Rol>()",
@@ -148,11 +148,13 @@
 		"description": "Snippet para generar un solo Mapping"
 	},
 
-	"entidad-Base": {
+	"Entidad-Base": {
 		"prefix": "entidad-Base",
 		"body": [
+			"using Dominio.Entities.GenericEntities;",
+			"",
 			"namespace Dominio.Entities;",
-			"\tpublic class ${1:Nombre} : BaseEntity{",
+			"\tpublic class ${1:Nombre} : BaseEntity {",
 			"",
 				"\t\t${2:}",
 			"",
@@ -162,7 +164,7 @@
 		"description": "Snippet para generar la estructura base de una entidad"
 	},
 
-	"public-int": {
+	"Public-int": {
 		"prefix": "public-int",
 		"body": [
 			"public int ${1:Nombre} { get; set; }"
@@ -170,7 +172,7 @@
 		"description": "Snippet para generar una propiedad int"
 	},
 
-	"public-double": {
+	"Public-double": {
 		"prefix": "public-double",
 		"body": [
 			"public double ${1:Nombre} { get; set; }"
@@ -178,7 +180,7 @@
 		"description": "Snippet para generar una propiedad double"
 	},
 
-	"public-string": {
+	"Public-string": {
 		"prefix": "public-string",
 		"body": [
 			"public string ? ${1:Nombre} { get; set; }"
@@ -186,7 +188,7 @@
 		"description": "Snippet para generar una propiedad string"
 	},
 
-	"public-DateTime": {
+	"Public-DateTime": {
 		"prefix": "public-DateTime",
 		"body": [
 			"public DateTime ${1:Nombre} { get; set; }"
@@ -194,7 +196,7 @@
 		"description": "Snippet para generar una propiedad DateTime"
 	},
 
-	"foreign-key": {
+	"Foreign-key": {
 		"prefix": "foreign-key",
 		"body": [
 			"public ${1:Nombre} ? ${1:Nombre}s { get; set; }"
@@ -203,17 +205,18 @@
 	},
 
 	"ICollection-key": {
-		"prefix": "ICollection-key",
+		"prefix": "iCollection-key",
 		"body": [
 			"public ICollection<${1:Nombre}> ? ${1:Nombre}s { get; set; }"
 		],
 		"description": "Snippet para generar una llave foranea"
 	},
 
-	"configuration-base": {
+	"Configuration-base": {
 		"prefix": "configuration-base",
 		"body": [
 			"using Dominio.Entities;",
+			"using Dominio.Entities.GenericEntities;",
 			"using Microsoft.EntityFrameworkCore;",
 			"using Microsoft.EntityFrameworkCore.Metadata;",
 			"using Microsoft.EntityFrameworkCore.Metadata.Builders;",
@@ -227,10 +230,10 @@
 					"\t\tbuilder.ToTable(\"${1:Nombre}\");",
 			"",
 					"\t\tbuilder.Property(p => p.Id)",
-						"\t\t.HasAnnotation(\"MySql:ValueGenerationStrategy\", MySqlValueGenerationStrategy.IdentityColumn)",
-						"\t\t.HasColumnName(\"Id${1:Nombre}\")",
-						"\t\t.HasColumnType(\"int\")",
-						"\t\t.IsRequired();",
+						"\t\t\t.HasAnnotation(\"MySql:ValueGenerationStrategy\", MySqlValueGenerationStrategy.IdentityColumn)",
+						"\t\t\t.HasColumnName(\"Id${1:Nombre}\")",
+						"\t\t\t.HasColumnType(\"int\")",
+						"\t\t\t.IsRequired();",
 			"\t\t",
 			"\t\t",
 			"\t\t",
@@ -257,7 +260,7 @@
 		"description": "Snippet para generar la base de los archivos de configuracion"
 	},
 
-	"property-int": {
+	"Property-int": {
 		"prefix": "property-int",
 		"body": [
 			"builder.Property(p => p.${1:Nombre})",
@@ -268,7 +271,7 @@
 		"description": "Snippet para generar una propiedad de configuracion int"
 	},
 
-	"property-double": {
+	"Property-double": {
 		"prefix": "property-double",
 		"body": [
 			"builder.Property(p => p.${1:Nombre})",
@@ -279,7 +282,7 @@
 		"description": "Snippet para generar una propiedad de configuracion double"
 	},
 
-	"property-varchar": {
+	"Property-varchar": {
 		"prefix": "property-varchar",
 		"body": [
 			"builder.Property(p => p.${1:Nombre})",
@@ -291,7 +294,7 @@
 		"description": "Snippet para generar una propiedad de configuracion varchar"
 	},
 
-	"property-DateTime": {
+	"Property-DateTime": {
 		"prefix": "property-DateTime",
 		"body": [
 			"builder.Property(p => p.${1:Nombre})",
@@ -302,7 +305,7 @@
 		"description": "Snippet para generar una propiedad de configuracion DateTime"
 	},
 
-	"hasOne": {
+	"HasOne": {
 		"prefix": "hasOne",
 		"body": [
 			"builder.HasOne(p => p.${1:ReferenciaForanea})",
@@ -312,7 +315,7 @@
 		"description": "Snippet para generar una llave foranea"
 	},
 
-	"hasData": {
+	"HasData": {
 		"prefix": "hasData",
 		"body": [
 			"new {",
@@ -322,7 +325,7 @@
 		"description": "Snippet para generar una base needing para insertar datos fijos a la base de datos"
 	},
 
-	"dbSet": {
+	"DbSet": {
 		"prefix": "dbSet",
 		"body": [
 			"public DbSet<${1:Nombre}> ? ${1:Nombre}s { get; set; } = null!;"
@@ -330,10 +333,11 @@
 		"description": "Snippet para generar una propiedad dbset"
 	},
 
-	"interface-base": {
+	"Interface-base": {
 		"prefix": "interface-base",
 		"body": [
 			"using Dominio.Entities;",
+			"using Dominio.Interfaces.Generic;",
 			"namespace Dominio.Interfaces;",
 			"",
 				"\tpublic interface I${1:Nombre} : IGenericRepository<${1:Nombre}>",
@@ -345,7 +349,7 @@
 		"description": "Snippet para generar la estructura base de una interfas"
 	},
 
-	"interface": {
+	"Interface": {
 		"prefix": "interface",
 		"body": [
 			"I${1:Nombre} ? ${1:Nombre}s { get; }"
@@ -353,7 +357,7 @@
 		"description": "Snippet para generar una referencia de las interfaces"
 	},
 
-	"repository-base": {
+	"Repository-base": {
 		"prefix": "repository-base",
 		"body": [
 			"using Dominio.Entities;",
@@ -381,7 +385,7 @@
 		"description": "Snippet para generar una estructura base de los repositorios"
 	},
 
-	"include": {
+	"Include": {
 		"prefix": "include",
 		"body": [
 			".Include(p => p.${1:foranea})"
@@ -389,7 +393,7 @@
 		"description": "Snippet para generar una referencia include"
 	},
 
-	"private-repository": {
+	"Private-repository": {
 		"prefix": "private-repository",
 		"body": [
 			"private ${1:Nombre}Repository ? _${1:Nombre};"
@@ -397,7 +401,7 @@
 		"description": "Snippet para generar una propiedad private"
 	},
 
-	"public-repository": {
+	"Public-repository": {
 		"prefix": "public-repository",
 		"body": [
 			"_${1:Nombre} ??= new ${1:Nombre}Repository(_Context!)"
@@ -405,7 +409,7 @@
 		"description": "Snippet para generar lo que falta de la referencia"
 	},
 
-	"dto-base": {
+	"Dto-base": {
 		"prefix": "dto-base",
 		"body": [
 			"namespace API.Dtos.DtosProject;",
@@ -420,7 +424,7 @@
 		"description": "Snippet para generar una estructura base dto"
 	},
 
-	"dbcontext": {
+	"Dbcontext": {
 		"prefix": "dbcontext",
 		"body": [
 			"using System.Reflection;",
@@ -452,6 +456,1053 @@
 				"\t}"
 		],
 		"description": "Snippet para generar una estructura base del dbcontext"
-	}
+	},
 
+	"Service-Extension": {
+		"prefix": "service-Extension",
+		"body": [
+			"using System.Text;",
+			"using API.Helpers;",
+			"using API.Services;",
+			"using Aplicacion.UnitOfWork;",
+			"using AspNetCoreRateLimit;",
+			"using Dominio.Entities;",
+			"using Dominio.Entities.GenericEntities;",
+			"using Dominio.Interfaces;",
+			"using Microsoft.AspNetCore.Authentication.JwtBearer;",
+			"using Microsoft.AspNetCore.Authorization;",
+			"using Microsoft.AspNetCore.Identity;",
+			"using Microsoft.AspNetCore.Mvc;",
+			"using Microsoft.AspNetCore.Mvc.Versioning;",
+			"using Microsoft.IdentityModel.Tokens;",
+			"",
+			"namespace API.Extensions;",
+			"",
+				"\tpublic static class ApplicationServiceExtension{",
+			"",
+					"\t\tpublic static void ConfigureCors(this IServiceCollection services) =>",
+						"\t\t\tservices.AddCors(options => {",
+							"\t\t\t\toptions.AddPolicy(\"CorsPolicy\",builder=>",
+								"\t\t\t\t\tbuilder.AllowAnyOrigin()        //WithOrigins(http://domini.com)",
+								"\t\t\t\t\t.AllowAnyMethod()               //WithMethods(*GET*, *POST*)",
+								"\t\t\t\t\t.AllowAnyHeader());             //WithHeaders(*accept*, content-type)",
+						"\t\t\t});",
+			"",
+			"",
+					"\t\tpublic static void AddAplicacionServices(this IServiceCollection services){",
+						"\t\t\tservices.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();",
+						"\t\t\tservices.AddScoped<IUserService, UserService>();",
+						"\t\t\tservices.AddScoped<IUnitOfWork,UnitOfWork>();",
+						"\t\t\tservices.AddScoped<IAuthorizationHandler, GlobalVerbRoleHandler>();",
+					"\t\t}",
+			"",
+					"\t\t// Definimos la configuración del JWT",
+					"\t\tpublic static void AddJwt(this IServiceCollection services, IConfiguration configuration)",
+					"\t\t{",
+						"\t\t\t// Configuración desde AppSettings",
+						"\t\t\tservices.Configure<JWT>(configuration.GetSection(\"JWT\"));",
+			"",
+						"\t\t\t// Añadimos Autenticación - JWT",
+						"\t\t\tservices.AddAuthentication(options =>",
+						"\t\t\t{",
+							"\t\t\t\toptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;",
+							"\t\t\t\toptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;",
+						"\t\t\t})",
+							"\t\t\t\t.AddJwtBearer(o =>",
+							"\t\t\t\t{",
+								"\t\t\t\t\to.RequireHttpsMetadata = false;",
+								"\t\t\t\t\to.SaveToken = false;",
+								"\t\t\t\t\to.TokenValidationParameters = new TokenValidationParameters",
+								"\t\t\t\t\t{",
+									"\t\t\t\t\t\tValidateIssuerSigningKey = true,",
+									"\t\t\t\t\t\tValidateIssuer = true,",
+									"\t\t\t\t\t\tValidateAudience = true,",
+									"\t\t\t\t\t\tValidateLifetime = true,",
+									"\t\t\t\t\t\tClockSkew = TimeSpan.Zero,",
+									"\t\t\t\t\t\tValidIssuer = configuration[\"JWT:Issuer\"],",
+									"\t\t\t\t\t\tValidAudience = configuration[\"JWT:Audience\"],",
+									"\t\t\t\t\t\tIssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration[\"JWT:Key\"]!))",
+								"\t\t\t\t\t};",
+							"\t\t\t\t});",
+					"\t\t}",
+			"",
+					"\t\t// Definimos el limite de peticiones que podemos realizar a un EndPoint",
+					"\t\tpublic static void ConfigureRateLimiting(this IServiceCollection services)",
+					"\t\t{",
+						"\t\t\tservices.AddMemoryCache();",
+						"\t\t\tservices.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();",
+						"\t\t\tservices.AddInMemoryRateLimiting();",
+						"\t\t\tservices.Configure<IpRateLimitOptions>(options => ",
+						"\t\t\t{",
+							"\t\t\t\toptions.StackBlockedRequests = false;",
+							"\t\t\t\toptions.HttpStatusCode = 429;",
+							"\t\t\t\toptions.RealIpHeader = \"X-Real-IP\";",
+							"\t\t\t\toptions.GeneralRules = new List<RateLimitRule>",
+							"\t\t\t\t{",
+								"\t\t\t\t\tnew RateLimitRule",
+								"\t\t\t\t\t{",
+									"\t\t\t\t\t\tEndpoint = \"*\",",
+									"\t\t\t\t\t\tPeriod = \"10s\",",
+									"\t\t\t\t\t\tLimit = 10",
+								"\t\t\t\t\t}",
+							"\t\t\t\t};",
+			"",
+						"\t\t\t});",
+						"",
+					"\t\t}",
+			"",
+					"\t\t// Control de versiones de Apis (Ver versiones de las Apis creadas o Enpoints)",
+					"\t\tpublic static void ConfigureApiVersioning(this IServiceCollection services)",
+					"\t\t{",
+						"\t\t\tservices.AddApiVersioning(options => {",
+			"",
+							"\t\t\t\toptions.DefaultApiVersion = new ApiVersion(1, 0);",
+							"\t\t\t\toptions.AssumeDefaultVersionWhenUnspecified = true;",
+							"\t\t\t\toptions.ApiVersionReader = new QueryStringApiVersionReader(\"v\");",
+							"\t\t\t\toptions.ApiVersionReader = new HeaderApiVersionReader(\"X-Version\");",
+							"\t\t\t\toptions.ApiVersionReader = ApiVersionReader.Combine(",
+								"\t\t\t\t\tnew QueryStringApiVersionReader(\"v\"),",
+								"\t\t\t\t\tnew HeaderApiVersionReader(\"X-Version\")",
+							"\t\t\t\t);",
+							"\t\t\t\toptions.ReportApiVersions = true;",
+			"",
+						"\t\t\t});",
+					"\t\t}",
+					"",
+				"\t}"
+		],
+		"description": "Snippet para generar la estructura del ApplicationServiceExtension"
+	},
+
+	"Generic-Interface": {
+		"prefix": "generic-Interface",
+		"body": [
+			"using System.Linq.Expressions;",
+			"using Dominio.Entities.GenericEntities;",
+"",
+			"namespace Dominio.Interfaces.Generic;",
+				"\tpublic interface IGenericRepository<T> where T : BaseEntity{",
+					"",
+					"\t\tTask<T> GetByIdAsync(int id);",
+					"\t\tTask<IEnumerable<T>> GetAllAsync();",
+					"\t\tIEnumerable<T> Find(Expression<Func<T, bool>> expression);",
+					"\t\tTask<(int totalRegistros, IEnumerable<T> registros)> GetAllAsync(int pageIndex, int pageSize, string search);",
+					"\t\tvoid Add(T entity);",
+					"\t\tvoid AddRange(IEnumerable<T> entities);",
+					"\t\tvoid Remove(T entity);",
+					"\t\tvoid RemoveRange(IEnumerable<T> entities);",
+					"\t\tvoid Update(T entity);",
+"",
+				"\t}"
+
+		],
+		"description": "Snippet para generar la estructura de Interfaces/IGenericRepository"
+	},
+
+	"Generic-Repository": {
+		"prefix": "generic-Repository",
+		"body": [
+			"using System.Linq.Expressions;",
+			"using Dominio.Entities.GenericEntities;",
+			"using Dominio.Interfaces.Generic;",
+			"using Microsoft.EntityFrameworkCore;",
+			"using Persistencia.Data;",
+			"",
+			"namespace Aplicacion.Repository.Generic;",
+				"\tpublic class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity{",
+			"",
+					"\t\tprivate readonly DbAppContext _Context;",
+			"",
+					"\t\tpublic GenericRepository(DbAppContext context)",
+					"\t\t{",
+						"\t\t\t_Context = context;",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual void Add(T entity)",
+					"\t\t{",
+						"\t\t\t_Context.Set<T>().Add(entity);",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual void AddRange(IEnumerable<T> entities)",
+					"\t\t{",
+						"\t\t\t_Context.Set<T>().AddRange(entities);",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression)",
+					"\t\t{",
+						"\t\t\treturn _Context.Set<T>().Where(expression);",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual async Task<IEnumerable<T>> GetAllAsync()",
+					"\t\t{",
+						"\t\t\treturn await _Context.Set<T>().ToListAsync();",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual async Task<T> GetByIdAsync(int id)",
+					"\t\t{",
+						"\t\t\treturn (await _Context.Set<T>().FindAsync(id))!;",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual async Task<T> GetByIdAsync(string id)",
+					"\t\t{",
+						"\t\t\treturn (await _Context.Set<T>().FindAsync(id))!;",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual void Remove(T entity)",
+					"\t\t{",
+						"\t\t\t_Context.Set<T>().Remove(entity);",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual void RemoveRange(IEnumerable<T> entities)",
+					"\t\t{",
+						"\t\t\t_Context.Set<T>().RemoveRange(entities);",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual void Update(T entity)",
+					"\t\t{",
+						"\t\t\t_Context.Set<T>().Update(entity);",
+					"\t\t}",
+			"",
+					"\t\tpublic virtual async Task<(int totalRegistros, IEnumerable<T> registros)> GetAllAsync(int pageIndex, int pageSize, string _search)",
+					"\t\t{",
+						"\t\t\tvar totalRegistros = await _Context.Set<T>().CountAsync();",
+						"\t\t\tvar registros = await _Context.Set<T>()",
+							"\t\t\t\t.Skip((pageIndex - 1) * pageSize)",
+							"\t\t\t\t.Take(pageSize)",
+							"\t\t\t\t.ToListAsync();",
+						"\t\t\treturn (totalRegistros, registros);",
+					"\t\t}",
+					"",
+                "\t}"
+		],
+		"description": "Snippet para generar la estructura del GenericRepository"
+	},
+
+	"UnitOfWork": {
+		"prefix": "unitOfWork",
+		"body": [
+			"using Aplicacion.Repository.Generic;",
+			"using Dominio.Interfaces;",
+			"using Dominio.Interfaces.Generic;",
+			"using Persistencia.Data;",
+			"",
+			"namespace Aplicacion.UnitOfWork;",
+				"\tpublic class UnitOfWork : IUnitOfWork, IDisposable{",
+			"",
+					"\t\tprivate readonly DbAppContext ? _Context;",
+					"\t\tpublic UnitOfWork(DbAppContext context){",
+						"\t\t\t_Context = context;",
+					"\t\t}",
+			"",
+			"",
+			"",
+					"\t\tprivate RolRepository ? _Rol;",
+					"\t\tprivate UsuarioRepository ? _Usuario;",
+					"\t\tprivate UsuarioRolesRepository ? _UsuariosRoles;",
+			"",
+			"",
+			"",
+			"",
+			"",
+					"\t\tpublic IUsuario? Usuarios => _Usuario ??= new UsuarioRepository(_Context!);",
+					"\t\tpublic IRol? Roles => _Rol ??= new RolRepository(_Context!);",
+					"\t\tpublic IUsuarioRoles? UsuarioRoles => _UsuariosRoles ??= new UsuarioRolesRepository(_Context!);",
+			"",
+			"",
+			"",
+			"",
+			"",
+					"\t\tpublic void Dispose()",
+					"\t\t{",
+						"\t\t\t_Context!.Dispose();",
+						"\t\t\tGC.SuppressFinalize(this);",
+					"\t\t}",
+			"",
+					"\t\tpublic Task<int> SaveAsync()",
+					"\t\t{",
+						"\t\t\treturn _Context!.SaveChangesAsync();",
+					"\t\t}",
+			"",
+				"\t}"
+		],
+		"description": "Snippet para generar la estructura de la UnitOfWork"
+	},
+
+	"Program": {
+		"prefix": "program",
+		"body": [
+			"using System.Reflection;",
+			"using API.Extensions;",
+			"using API.Helpers;",
+			"using AspNetCoreRateLimit;",
+			"using Microsoft.AspNetCore.Authorization;",
+			"using Microsoft.EntityFrameworkCore;",
+			"using Persistencia.Data;",
+			"using Serilog;",
+			"",
+			"var builder = WebApplication.CreateBuilder(args);",
+			"",
+			"var logger = new LoggerConfiguration()",
+								"\t\t\t\t\t.ReadFrom.Configuration(builder.Configuration)",
+								"\t\t\t\t\t.Enrich.FromLogContext()",
+								"\t\t\t\t\t.CreateLogger();",
+			"",
+			"builder.Logging.AddSerilog(logger);",
+			"",
+			"// El context accessor nos permite que podamos implementar la autorizacion de roles",
+			"builder.Services.AddHttpContextAccessor();",
+			"",
+			"// Add services to the container.",
+			"builder.Services.AddControllers( options =>",
+			"{",
+				"\toptions.RespectBrowserAcceptHeader = true;",
+				"\toptions.ReturnHttpNotAcceptable = true; // Envia error si no es soportado el formato que se quiere usar",
+			"",
+			"}).AddXmlSerializerFormatters();",
+			"",
+			"",
+			"",
+			"builder.Services.ConfigureCors(); // Configuración de las cors",
+			"builder.Services.AddAplicacionServices(); // Configuración de la UnitOfWork(repo-interface) y otras cosas mas",
+			"builder.Services.AddJwt(builder.Configuration); // Definir los parametros del JWT para añadir ",
+			"builder.Services.AddAutoMapper(Assembly.GetEntryAssembly()); // Habilitar el AutoMapper",
+			"builder.Services.ConfigureRateLimiting(); // Habilitar la configuración del número de peticiones",
+			"builder.Services.ConfigureApiVersioning(); // Habilitar las versiones o versionado en el proyecto para las Apis",
+			"",
+			"",
+			"",
+			"builder.Services.AddAuthorization(opts => {",
+				"\topts.DefaultPolicy = new AuthorizationPolicyBuilder()",
+					"\t\t.RequireAuthenticatedUser()",
+					"\t\t.AddRequirements(new GlobalVerbRoleRequirement())",
+					"\t\t.Build();",
+			"});",
+			"",
+			"// Habilitamos la conexion a la base de datos ",
+			"builder.Services.AddDbContext<DbAppContext>(options =>",
+			"{",
+				"\tstring ? connectionString = builder.Configuration.GetConnectionString(\"ConexMysql${1:Home}\");",
+				"\toptions.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));",
+			"});",
+			"",
+			"// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle",
+			"builder.Services.AddEndpointsApiExplorer();",
+			"builder.Services.AddSwaggerGen();",
+			"",
+			"var app = builder.Build();",
+			"",
+			"app.UseStatusCodePagesWithReExecute(\"/errors/{0}\");",
+			"",
+			"// Configure the HTTP request pipeline.",
+			"if (app.Environment.IsDevelopment())",
+			"{",
+				"\tapp.UseSwagger();",
+				"\tapp.UseSwaggerUI();",
+			"}",
+			"",
+			"",
+			"// Activar migraciones pendientes ",
+			"using (var scope = app.Services.CreateScope())",
+			"{",
+			   "\tvar services = scope.ServiceProvider;",
+			   "\tvar loggerFactory = services.GetRequiredService<ILoggerFactory>();",
+			   "\ttry",
+				"\t{",
+					"\t\tvar context = services.GetRequiredService<DbAppContext>();",
+					"\t\tawait context.Database.MigrateAsync();",
+				"\t}",
+				"\tcatch (Exception ex)",
+				"\t{",
+					"\t\tvar _logger = loggerFactory.CreateLogger<Program>();",
+					"\t\t_logger.LogError(ex, \"Ocurrió un error durante la migración\");",
+				"\t}",
+			"}",
+			"",
+			"",
+			"",
+			"app.UseIpRateLimiting();",
+			"",
+			"app.UseCors(\"CorsPolicy\");",
+			"",
+			"app.UseHttpsRedirection();",
+			"",
+			"app.UseAuthentication();",
+			"",
+			"app.UseAuthorization();",
+			"",
+			"app.MapControllers();",
+			"",
+			"app.Run();",
+			"",
+			""
+		],
+		"description": "Snippet para generar la estructura del Program"
+	},
+
+	// HELPERS
+	//		- Autorizacion
+	//		- GlobalVerbRoleHandler
+	//		- GlobalVerbRoleRequirement
+	//		- JWT
+	//		- Pager
+	//		- Params
+
+	"Autorizacion": {
+		"prefix": "autorizacion",
+		"body": [
+			"namespace API.Helpers;",
+				"\tpublic class Autorizacion{",
+					"",
+					"\t\tpublic enum Roles{",
+						"\t\t\tAdministrador,",
+						"\t\t\tGerente,",
+						"\t\t\tEmpleado,",
+						"\t\t\tCliente",
+					"\t\t}",
+					"\t\tpublic const Roles rol_predeterminado = Roles.Cliente;",
+					"",
+				"\t}",
+		""
+		],
+		"description": "Snippet para generar la estructura de API/Helpers/Autorizacion"
+	},
+
+	"GlobalVerbRoleHandler": {
+		"prefix": "globalVerbRoleHandler",
+		"body": [
+			"using System.Security.Claims;",
+			"using Microsoft.AspNetCore.Authorization;",
+			"",
+			"namespace API.Helpers;",
+				"\tpublic class GlobalVerbRoleHandler : AuthorizationHandler<GlobalVerbRoleRequirement>",
+				"\t{",
+			"",
+					"\t\tprivate readonly IHttpContextAccessor _httpContextAccessor;",
+			"",
+					"\t\tpublic GlobalVerbRoleHandler(IHttpContextAccessor httpContextAccessor)",
+					"\t\t{",
+						"\t\t\t_httpContextAccessor = httpContextAccessor;",
+					"\t\t}",
+			"",
+					"\t\tprotected override Task HandleRequirementAsync(AuthorizationHandlerContext context, GlobalVerbRoleRequirement requirement)",
+					"\t\t{",
+						"\t\t\t// Comprobar si el usuario tiene los roles requeridos para el Verb actual",
+						"\t\t\tvar roles = context.User.FindAll(c => string.Equals(c.Type, ClaimTypes.Role)).Select(c => c.Value);",
+						"\t\t\tvar verb = _httpContextAccessor.HttpContext?.Request.Method;",
+						"\t\t\tif (string.IsNullOrEmpty(verb)) { throw new Exception($\"request cann't be null!\"); }",
+						"\t\t\tforeach (var role in roles)",
+						"\t\t\t{",
+							"\t\t\t\tif (requirement.IsAllowed(role, verb))",
+							"\t\t\t\t{",
+								"\t\t\t\t\tcontext.Succeed(requirement);",
+								"\t\t\t\t\treturn Task.CompletedTask;",
+							"\t\t\t\t}",
+						"\t\t\t}",
+						"\t\t\tcontext.Fail();",
+						"\t\t\treturn Task.CompletedTask;",
+					"\t\t}",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Helpers/GlobalVerbRoleHandler"
+	},
+
+	"GlobalVerbRoleRequirement": {
+		"prefix": "globalVerbRoleRequirement",
+		"body": [
+			"using Microsoft.AspNetCore.Authorization;",
+			"",
+			"namespace API.Helpers;",
+				"\tpublic class GlobalVerbRoleRequirement : IAuthorizationRequirement{",
+					"",
+					"\t\tpublic bool IsAllowed(string role, string verb)",
+					"\t\t{",
+						"\t\t\t//TODO: Los Verbs se pasan como parámetros a un método llamado IsAllowed => Métodos o Parametros HTTP (GET, POST, PUT y DELETE)",
+						"",
+						"\t\t\t// Permitir todos los Verbs si el usuario es \"Admin\"",
+						"\t\t\tif(string.Equals(\"Administrador\", role, StringComparison.OrdinalIgnoreCase)) return true;",
+						"\t\t\t//if(string.Equals(\"Gerente\", role, StringComparison.OrdinalIgnoreCase)) return true;",
+			"",
+			"",
+						"\t\t\t// Permitir el Verb \"GET\" si el usuario es \"Support\"",
+						"\t\t\tif(string.Equals(\"Cliente\", role, StringComparison.OrdinalIgnoreCase) && string.Equals(\"GET\",verb, StringComparison.OrdinalIgnoreCase)){",
+							"\t\t\t\treturn true;",
+						"\t\t\t};",
+						"\t\t\t//if(string.Equals(\"Empresa\", role, StringComparison.OrdinalIgnoreCase) && string.Equals(\"GET\",verb, StringComparison.OrdinalIgnoreCase)){",
+						"\t\t\t//    return true;",
+						"\t\t\t//};",
+						"\t\t\t//if(string.Equals(\"Empleado\", role, StringComparison.OrdinalIgnoreCase) && string.Equals(\"GET\",verb, StringComparison.OrdinalIgnoreCase)){",
+						"\t\t\t//    return true;",
+						"\t\t\t//};",
+						"\t\t\t//if(string.Equals(\"Camper\", role, StringComparison.OrdinalIgnoreCase) && string.Equals(\"GET\",verb, StringComparison.OrdinalIgnoreCase)){",
+						"\t\t\t//    return true;",
+						"\t\t\t//};",
+			"",
+			"",
+						"\t\t\t// ... añadir otras normas si se desea",
+						"\t\t\treturn false;",
+					"\t\t}",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Helpers/GlobalVerbRoleRequirement"
+	},
+
+	"JWT": {
+		"prefix": "jWT",
+		"body": [
+			"namespace API.Helpers;",
+				"\tpublic class JWT{",
+				"",	
+					"\t\tpublic string ? Key { get; set; }",
+					"\t\tpublic string ? Issuer { get; set; }",
+					"\t\tpublic string ? Audience { get; set; }",
+					"\t\tpublic double DurationInMinutes { get; set; }",
+				"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Helpers/JWT"
+	},
+
+	"Pager": {
+		"prefix": "pager",
+		"body": [
+			"namespace API.Helpers;",
+				"\tpublic class Pager<T> where T : class{",
+					"",
+					"\t\tpublic string Search { get;  set; }",
+					"\t\tpublic int PageIndex { get;  set; }",
+					"\t\tpublic int PageSize { get;  set; }",
+					"\t\tpublic int Total { get;  set; }",
+					"\t\tpublic List<T> Registers { get; private set; }",
+					"",
+					"\t\tpublic Pager(List<T> registers, int total, int pageIndex, int pageSize, string search)",
+					"\t\t{",
+						"\t\t\tRegisters = registers;",
+						"\t\t\tTotal = total;",
+						"\t\t\tPageIndex = pageIndex;",
+						"\t\t\tPageSize = pageSize;",
+						"\t\t\tSearch = search;",
+					"\t\t}",
+			"",
+			"",
+					"\t\tpublic int TotalPages",
+					"\t\t{",
+						"\t\t\tget{",
+							"\t\t\t\treturn (int)Math.Ceiling(Total / (double)PageSize);",
+						"\t\t\t}",
+						"\t\t\tset{",
+							"\t\t\t\tTotalPages = value;",
+						"\t\t\t}",
+					"\t\t}",
+			"",
+					"\t\tpublic bool HasPreviousPage",
+					"\t\t{",
+						"\t\t\tget{",
+							"\t\t\t\treturn (PageIndex > 1);",
+						"\t\t\t}",
+						"\t\t\tset{",
+							"\t\t\t\tHasPreviousPage = value;",
+						"\t\t\t}",
+					"\t\t}",
+			"",
+					"\t\tpublic bool HasNextPage",
+					"\t\t{",
+						"\t\t\tget{",
+							"\t\t\t\treturn (PageIndex < TotalPages);",
+						"\t\t\t}",
+						"\t\t\tset{",
+							"\t\t\t\tHasNextPage = value;",
+						"\t\t\t}",
+					"\t\t}",
+			"",
+				"\t}",
+		""
+		],
+		"description": "Snippet para generar la estructura de API/Helpers/Pager"
+	},
+
+	"Params": {
+		"prefix": "params",
+		"body": [
+			"namespace API.Helpers;",
+				"\tpublic class Params {",
+					"",
+					"\t\tprivate int _PageSize = 5;",
+					"\t\tprivate const int MaxPageSize = 50;",
+					"\t\tprivate int _PageIndex = 1;",
+					"\t\tprivate string ? _Search;",
+					"\t\tpublic int PageSize{",
+			"",
+						"\t\t\tget => _PageSize;",
+						"\t\t\tset => _PageSize = (value > MaxPageSize) ? MaxPageSize : value;",
+					"",
+					"\t\t}",
+					"\t\tpublic int PageIndex{",
+			"",
+						"\t\t\tget => _PageIndex;",
+						"\t\t\tset => _PageIndex = (value <= 0) ? 1 : value;",
+					"",
+					"\t\t}",
+					"\t\tpublic string Search{",
+			"",
+						"\t\t\tget => _Search!;",
+						"\t\t\tset => _Search = (!String.IsNullOrEmpty(value)) ? value.ToLower() : \"\";",
+					"",
+					"\t\t}",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Helpers/Params"
+	},
+
+
+	// API/Dtos/Generic
+	//		- AddRolDto
+	//		- DataUserDto
+	//		- LoginDto
+	//		- RegisterDto
+	//		- RolDto
+	//		- UsuarioDto
+
+	"AddRolDto": {
+		"prefix": "addRolDto",
+		"body": [
+			"using System.ComponentModel.DataAnnotations;",
+			"",
+			"namespace API.Dtos.Generic;",
+				"\tpublic class AddRolDto {",
+			"",
+					"\t\t[Required]",
+					"\t\tpublic string ? Username { get; set; }",
+					"\t\t[Required]",
+					"\t\tpublic string ? Password { get; set; }",
+					"\t\t[Required]",
+					"\t\tpublic string ? Rol { get; set; }",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Dtos/Generic/AddRolDto"
+	},
+
+	"DataUserDto": {
+		"prefix": "dataUserDto",
+		"body": [
+			"using System.Text.Json.Serialization;",
+			"",
+			"namespace API.Dtos.Generic;",
+				"\tpublic class DataUserDto {",
+			"",
+					"\t\tpublic string ? Message { get; set; }",
+					"\t\tpublic bool IsAuthenticated { get; set; }",
+					"\t\tpublic string ? UserName { get; set; }",
+					"\t\tpublic string ? Email { get; set; }",
+					"\t\tpublic List<string> ? Roles { get; set; }",
+					"\t\tpublic string ? Token { get; set; }",
+			"",
+					"\t\t[JsonIgnore] // Este atributo restringe la propiedad que se mostrará en el resultado",
+					"\t\tpublic string ? RefreshToken { get; set; }",
+					"\t\tpublic DateTime RefreshTokenExpiration { get; set; }",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Dtos/Generic/DataUserDto"
+	},
+
+	"LoginDto": {
+		"prefix": "loginDto",
+		"body": [
+			"using System.ComponentModel.DataAnnotations;",
+			"",
+			"namespace API.Dtos.Generic;",
+				"\tpublic class LoginDto {",
+			"",
+					"\t\t[Required]",
+					"\t\tpublic string ? Username { get; set; }",
+					"\t\t[Required]",
+					"\t\tpublic string ? Password { get; set; }",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Dtos/Generic/LoginDto"
+	},
+
+	"RegisterDto": {
+		"prefix": "registerDto",
+		"body": [
+			"using System.ComponentModel.DataAnnotations;",
+			"",
+			"namespace API.Dtos.Generic;",
+				"\tpublic class RegisterDto {",
+			"",
+					"\t\t[Required]",
+					"\t\tpublic string ? Email { get; set; }",
+					"\t\t[Required]",
+					"\t\tpublic string ? Username { get; set; }",
+					"\t\t[Required]",
+					"\t\tpublic string ? Password { get; set; }",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Dtos/Generic/RegisterDto"
+	},
+
+	"RolDto": {
+		"prefix": "rolDto",
+		"body": [
+			"namespace API.Dtos.Generic;",
+				"\tpublic class RolDto {",
+			"",
+					"\t\tpublic int Id { get; set; }",
+					"\t\tpublic string ? Nombre { get; set; }",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Dtos/Generic/RolDto"
+	},
+
+	"UsuarioDto": {
+		"prefix": "usuarioDto",
+		"body": [
+			"namespace API.Dtos.Generic;",
+				"\tpublic class UsuarioDto {",
+			"",
+					"\t\tpublic string Usename { get; set; } = null!;",
+					"\t\tpublic string Email { get; set; } = null!;",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Dtos/Generic/UsuarioDto"
+	},
+
+
+	// API/Services
+	//		- IUserService
+	//		- UserService
+
+	"IUserService": {
+		"prefix": "iUserService",
+		"body": [
+			"using API.Dtos.Generic;",
+			"using Dominio.Entities.GenericEntities;",
+			"",
+			"namespace API.Services;",
+				"\tpublic interface IUserService {",
+			"",
+					"\t\tTask<string> RegisterAsync(RegisterDto model);",
+					"\t\tTask<DataUserDto> GetTokenAsync(LoginDto model);",
+					"\t\tTask<string> AddRoleAsync(AddRolDto model);",
+					"\t\tTask<Usuario> EditarUsuarioAsync(Usuario model);",
+					"\t\tTask<DataUserDto> RefreshTokenAsync(string refreshToken);",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Service/IUserService"
+	},
+
+	"UserService": {
+		"prefix": "userService",
+		"body": [
+			"using System.IdentityModel.Tokens.Jwt;",
+			"using System.Security.Claims;",
+			"using System.Security.Cryptography;",
+			"using System.Text;",
+			"using API.Dtos.Generic;",
+			"using API.Helpers;",
+			"using Dominio.Entities.GenericEntities;",
+			"using Dominio.Interfaces;",
+			"using Microsoft.AspNetCore.Identity;",
+			"using Microsoft.Extensions.Options;",
+			"using Microsoft.IdentityModel.Tokens;",
+			"",
+			"namespace API.Services;",
+				"\tpublic class UserService : IUserService {",
+					"",
+					"\t\tprivate readonly JWT _jwt;",
+					"\t\tprivate readonly IUnitOfWork _unitOfWork;",
+					"\t\tprivate readonly IPasswordHasher<Usuario> _passwordHasher;",
+					"\t\tpublic UserService(IUnitOfWork unitOfWork, IOptions<JWT> jwt, IPasswordHasher<Usuario> passwordHasher)",
+					"\t\t{",
+						"\t\t\t_jwt = jwt.Value;",
+						"\t\t\t_unitOfWork = unitOfWork;",
+						"\t\t\t_passwordHasher = passwordHasher;",
+					"\t\t}",
+			"",
+			"",
+			"",
+					"\t\tprivate RefreshToken CreateRefreshToken()",
+					"\t\t{",
+						"\t\t\tvar randomNumber = new byte[32];",
+						"\t\t\tusing (var generator = RandomNumberGenerator.Create())",
+						"\t\t\t{",
+							"\t\t\t\tgenerator.GetBytes(randomNumber);",
+							"\t\t\t\treturn new RefreshToken",
+							"\t\t\t\t{",
+								"\t\t\t\t\tToken = Convert.ToBase64String(randomNumber),",
+								"\t\t\t\t\tExpires = DateTime.UtcNow.AddDays(10),",
+								"\t\t\t\t\tCreated = DateTime.UtcNow",
+							"\t\t\t\t};",
+						"\t\t\t}",
+					"\t\t}",
+			"",
+			"",
+			"",
+					"\t\tasync Task<string> IUserService.RegisterAsync(RegisterDto registerDto)",
+					"\t\t{",
+						"\t\t\tvar usuario = new Usuario",
+						"\t\t\t{",
+							"\t\t\t\tEmail = registerDto.Email,",
+							"\t\t\t\tUserName = registerDto.Username,",
+						"\t\t\t};",
+			"",
+						"\t\t\tusuario.Password = _passwordHasher.HashPassword(usuario, registerDto.Password!);",
+			"",
+						"\t\t\tvar usuarioExiste = _unitOfWork.Usuarios!",
+															"\t\t\t\t\t\t\t\t\t\t\t.Find(u => u.UserName!.ToLower() == registerDto.Username!.ToLower())",
+															"\t\t\t\t\t\t\t\t\t\t\t.FirstOrDefault();",
+			"",
+						"\t\t\tif (usuarioExiste == null)",
+						"\t\t\t{",
+							"\t\t\t\tvar rolPredeterminado = _unitOfWork.Roles!",
+																"\t\t\t\t\t\t\t\t\t\t\t\t\t.Find(u => u.Nombre == Autorizacion.rol_predeterminado.ToString())",
+																"\t\t\t\t\t\t\t\t\t\t\t\t\t.First();",
+							"\t\t\t\ttry",
+							"\t\t\t\t{",
+								"\t\t\t\t\tusuario.Roles!.Add(rolPredeterminado);",
+								"\t\t\t\t\t_unitOfWork.Usuarios.Add(usuario);",
+								"\t\t\t\t\tawait _unitOfWork.SaveAsync();",
+			"",
+								"\t\t\t\t\treturn $\"El Usuario {registerDto.Username} ha sido registrado exitosamente\";",
+							"\t\t\t\t}",
+			"",
+							"\t\t\t\tcatch (Exception ex)",
+							"\t\t\t\t{",
+								"\t\t\t\t\tvar message = ex.Message;",
+								"\t\t\t\t\treturn $\"Error: {message}\";",
+							"\t\t\t\t}",
+						"\t\t\t}",
+						"\t\t\telse",
+						"\t\t\t{",
+							"\t\t\t\treturn $\"El usuario con {registerDto.Username} ya se encuentra resgistrado.\";",
+						"\t\t\t}",
+			"",
+					"\t\t}",
+			"",
+			"",
+			"",
+					"\t\tasync Task<string> IUserService.AddRoleAsync(AddRolDto model)",
+					"\t\t{",
+						"\t\t\tvar usuario = await _unitOfWork.Usuarios!",
+														"\t\t\t\t\t\t\t\t\t\t\t.GetByUsernameAsync(model.Username!);",
+			"",
+						"\t\t\tif (usuario == null)",
+						"\t\t\t{",
+							"\t\t\t\treturn $\"No existe algun usuario registrado con la cuenta olvido algun caracter?{model.Username}.\";",
+						"\t\t\t}",
+			"",
+						"\t\t\tvar resultado = _passwordHasher.VerifyHashedPassword(usuario, usuario.Password!, model.Password!);",
+			"",
+						"\t\t\tif (resultado == PasswordVerificationResult.Success)",
+						"\t\t\t{",
+							"\t\t\t\tvar rolExiste = _unitOfWork.Roles!",
+														"\t\t\t\t\t\t\t\t\t\t\t.Find(u => u.Nombre!.ToLower() == model.Rol!.ToLower())",
+														"\t\t\t\t\t\t\t\t\t\t\t.FirstOrDefault();",
+			"",
+							"\t\t\t\tif (rolExiste != null)",
+							"\t\t\t\t{",
+								"\t\t\t\t\tvar usuarioTieneRol = usuario.Roles!",
+																		"\t\t\t\t\t\t\t\t\t\t\t\t\t.Any(u => u.Id == rolExiste.Id);",
+			"",
+								"\t\t\t\t\tif (usuarioTieneRol == false)",
+								"\t\t\t\t\t{",
+									"\t\t\t\t\t\tusuario.Roles!.Add(rolExiste);",
+									"\t\t\t\t\t\t_unitOfWork.Usuarios.Update(usuario);",
+									"\t\t\t\t\t\tawait _unitOfWork.SaveAsync();",
+								"\t\t\t\t\t}",
+			"",
+								"\t\t\t\t\treturn $\"Rol {model.Rol} agregado a la cuenta {model.Username} de forma exitosa.\";",
+							"\t\t\t\t}",
+			"",
+							"\t\t\t\treturn $\"Rol {model.Rol} no encontrado.\";",
+						"\t\t\t}",
+			"",
+						"\t\t\treturn $\"Credenciales incorrectas para el ususario {usuario.UserName}.\";",
+					"",
+					"\t\t}",
+			"",
+			"",
+			"",
+					"\t\tpublic async Task<DataUserDto> GetTokenAsync(LoginDto model)",
+					"\t\t{",
+						"\t\t\tDataUserDto datosUsuarioDto = new DataUserDto();",
+						"\t\t\tvar usuario = await _unitOfWork.Usuarios!",
+														"\t\t\t\t\t\t\t\t\t\t\t.GetByUsernameAsync(model.Username!);",
+			"",
+						"\t\t\tif (usuario == null)",
+						"\t\t\t{",
+							"\t\t\t\tdatosUsuarioDto.IsAuthenticated = false;",
+							"\t\t\t\tdatosUsuarioDto.Message = $\"No existe ningun usuario con el username {model.Username}.\";",
+							"\t\t\t\treturn datosUsuarioDto;",
+						"\t\t\t}",
+			"",
+						"\t\t\tvar result = _passwordHasher.VerifyHashedPassword(usuario, usuario.Password!, model.Password!);",
+						"\t\t\tif (result == PasswordVerificationResult.Success)",
+						"\t\t\t{",
+							"\t\t\t\tdatosUsuarioDto.IsAuthenticated = true;",
+							"\t\t\t\tdatosUsuarioDto.Message = \"OK\";",
+							"\t\t\t\tdatosUsuarioDto.IsAuthenticated = true;",
+			"",
+							"\t\t\t\tif (usuario != null && usuario != null)",
+							"\t\t\t\t{",
+								"\t\t\t\t\tJwtSecurityToken jwtSecurityToken = CreateJwtToken(usuario);",
+								"\t\t\t\t\tdatosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);",
+								"\t\t\t\t\tdatosUsuarioDto.UserName = usuario.UserName;",
+								"\t\t\t\t\tdatosUsuarioDto.Email = usuario.Email;",
+								"\t\t\t\t\tdatosUsuarioDto.Roles = (usuario.Roles!",
+																"\t\t\t\t\t\t\t\t\t\t\t\t\t.Select(p => p.Nombre)",
+																"\t\t\t\t\t\t\t\t\t\t\t\t\t.ToList())!;",
+			"",
+			"",
+								"\t\t\t\t\tif (usuario.RefreshTokens!.Any(a => a.IsActive))",
+									"\t\t\t\t\t\t{",
+										"\t\t\t\t\t\t\tvar activeRefreshToken = usuario.RefreshTokens!.Where(a => a.IsActive == true).FirstOrDefault();",
+										"\t\t\t\t\t\t\tdatosUsuarioDto.RefreshToken = activeRefreshToken!.Token;",
+										"\t\t\t\t\t\t\tdatosUsuarioDto.RefreshTokenExpiration = activeRefreshToken.Expires;",
+									"\t\t\t\t\t\t}",
+									"\t\t\t\t\t\telse",
+									"\t\t\t\t\t\t{",
+										"\t\t\t\t\t\t\tvar refreshToken = CreateRefreshToken();",
+										"\t\t\t\t\t\t\tdatosUsuarioDto.RefreshToken = refreshToken.Token;",
+										"\t\t\t\t\t\t\tdatosUsuarioDto.RefreshTokenExpiration = refreshToken.Expires;",
+										"\t\t\t\t\t\t\tusuario.RefreshTokens!.Add(refreshToken);",
+										"\t\t\t\t\t\t\t_unitOfWork.Usuarios.Update(usuario);",
+										"\t\t\t\t\t\t\tawait _unitOfWork.SaveAsync();",
+									"\t\t\t\t\t\t}",
+			"",
+									"\t\t\t\t\t\treturn datosUsuarioDto;",
+			"",
+							"\t\t\t\t}",
+							"\t\t\t\telse{",
+								"\t\t\t\t\tdatosUsuarioDto.IsAuthenticated = false;",
+								"\t\t\t\t\tdatosUsuarioDto.Message = $\"Credenciales incorrectas para el usuario {usuario!.UserName}.\";",
+			"",
+								"\t\t\t\t\treturn datosUsuarioDto;",
+							"\t\t\t\t}",
+						"\t\t\t}",
+						"",
+						"\t\t\t// Valor de retorno predeterminado en caso de que ninguna condición se cumpla",
+						"\t\t\treturn datosUsuarioDto;",
+			"",
+					"\t\t}",
+			"",
+			"",
+			"",
+					"\t\t// Metodo para la creacion del token Personalizado para cada tipo de rol",
+					"\t\tprivate JwtSecurityToken CreateJwtToken(Usuario usuario)",
+					"\t\t{",
+						"\t\t\tvar roles = usuario.Roles;",
+						"\t\t\tvar roleClaims = new List<Claim>();",
+						"\t\t\tforeach (var role in roles!)",
+						"\t\t\t{",
+							"\t\t\t\troleClaims.Add(new Claim(\"roles\", role.Nombre!));",
+						"\t\t\t}",
+						"\t\t\tvar claims = new[]",
+						"\t\t\t{",
+							"\t\t\t\tnew Claim(JwtRegisteredClaimNames.Sub, usuario.UserName!),",
+							"\t\t\t\tnew Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),",
+							"\t\t\t\tnew Claim(\"uid\", usuario.Id.ToString())",
+						"\t\t\t}",
+						"\t\t\t.Union(roleClaims);",
+						"",
+						"\t\t\tvar symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key!));",
+						"\t\t\tConsole.WriteLine(\"\", symmetricSecurityKey);",
+			"",
+						"\t\t\tvar signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);",
+						"\t\t\tvar JwtSecurityToken = new JwtSecurityToken(",
+							"\t\t\t\tissuer : _jwt.Issuer,",
+							"\t\t\t\taudience : _jwt.Audience,",
+							"\t\t\t\tclaims : claims,",
+							"\t\t\t\texpires : DateTime.UtcNow.AddMinutes(_jwt.DurationInMinutes),",
+							"\t\t\t\tsigningCredentials : signingCredentials);",
+			"",
+						"\t\t\treturn JwtSecurityToken;",
+					"\t\t}",
+			"",
+			"",
+			"",
+					"\t\tasync Task<DataUserDto> IUserService.RefreshTokenAsync(string refreshToken)",
+					"\t\t{",
+						"\t\t\tvar datosUsuarioDto = new DataUserDto();",
+			"",
+						"\t\t\tvar usuario = await _unitOfWork.Usuarios!",
+																"\t\t\t\t\t\t\t\t\t\t\t.GetByRefreshTokenAsync(refreshToken);",
+			"",
+						"\t\t\tif (usuario == null)",
+						"\t\t\t{",
+							"\t\t\t\tdatosUsuarioDto.IsAuthenticated = false;",
+							"\t\t\t\tdatosUsuarioDto.Message = $\"El token no esta asignado a ningun usuario.\";",
+							"\t\t\t\treturn datosUsuarioDto;",
+						"\t\t\t}",
+			"",
+						"\t\t\tvar refreshTokenBd = usuario.RefreshTokens!.Single(x => x.Token == refreshToken);",
+			"",
+						"\t\t\tif (!refreshTokenBd.IsActive)",
+						"\t\t\t{",
+							"\t\t\t\tdatosUsuarioDto.IsAuthenticated = false;",
+							"\t\t\t\tdatosUsuarioDto.Message = $\"El token no es valido.\";",
+							"\t\t\t\treturn datosUsuarioDto;",
+						"\t\t\t}",
+						"",
+						"\t\t\t// Revoque el token de actualización actual y",
+						"\t\t\trefreshTokenBd.Revoked = DateTime.UtcNow;",
+						"\t\t\t// genera un nuevo token de actualización y lo guarda en la base de datos",
+						"\t\t\tvar newRefreshToken = CreateRefreshToken();",
+						"\t\t\tusuario.RefreshTokens!.Add(newRefreshToken);",
+						"\t\t\t_unitOfWork.Usuarios.Update(usuario);",
+						"\t\t\tawait _unitOfWork.SaveAsync();",
+						"\t\t\t// Generar un nuevo Json Web Token",
+						"\t\t\tdatosUsuarioDto.IsAuthenticated = true;",
+						"\t\t\tJwtSecurityToken jwtSecurityToken = CreateJwtToken(usuario);",
+						"\t\t\tdatosUsuarioDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);",
+						"\t\t\tdatosUsuarioDto.Email = usuario.Email;",
+						"\t\t\tdatosUsuarioDto.UserName = usuario.UserName;",
+						"\t\t\tdatosUsuarioDto.Roles = (usuario.Roles!",
+														"\t\t\t\t\t\t\t\t\t\t.Select(u => u.Nombre)",
+														"\t\t\t\t\t\t\t\t\t\t.ToList())!;",
+						"\t\t\tdatosUsuarioDto.RefreshToken = newRefreshToken.Token;",
+						"\t\t\tdatosUsuarioDto.RefreshTokenExpiration = newRefreshToken.Expires;",
+						"\t\t\treturn datosUsuarioDto;",
+					"\t\t}",
+			"",
+			"",
+			"",
+					"\t\t// Editar el usuario registrado",
+					"\t\tpublic async Task<Usuario> EditarUsuarioAsync(Usuario model)",
+					"\t\t{",
+						"\t\t\tUsuario usuario = new Usuario();",
+						"\t\t\tusuario.Id = model.Id;",
+						"\t\t\tusuario.UserName = model.UserName;",
+						"\t\t\tusuario.Email = model.Email;",
+						"\t\t\tusuario.Password = _passwordHasher.HashPassword(usuario, model.Password!);",
+						"\t\t\t_unitOfWork.Usuarios!.Update(usuario);",
+						"\t\t\tawait _unitOfWork.SaveAsync();",
+						"\t\t\treturn usuario;",
+					"\t\t}",
+			"",
+				"\t}",
+			""
+		],
+		"description": "Snippet para generar la estructura de API/Service/UserService"
+	}
 }
